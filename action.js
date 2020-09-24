@@ -1,8 +1,7 @@
 const fileDownloader = require("nodejs-file-downloader");
 const chalk = require("chalk");
 const loadingSpinner = require("loading-spinner");
-const ProgressBar = require("progress");
-const { program } = require("commander");
+// const ProgressBar = require("progress");
 
 const spinnerConfig = {
   hideCursor: true,
@@ -14,9 +13,9 @@ const spinnerConfig = {
 const green = (str) => chalk.green(str);
 
 // Customize the spinner sequence
-// loadingSpinner.setSequence(
-//   [[green("|"), green("/"), green("-"), green("\\")]] // Sequence of spinner elements
-// );
+loadingSpinner.setSequence(
+  [green("|"), green("/"), green("-"), green("\\")] // Sequence of spinner elements
+);
 
 // const progressBar = new ProgressBar("-> downloading [:bar] :percent :etas", {
 //   width: 40,
@@ -29,7 +28,7 @@ const green = (str) => chalk.green(str);
 module.exports = async function (link, options) {
   try {
     const downloader = new fileDownloader({
-      url: String(link),
+      url: link,
     });
     if (options.directory) {
       downloader.config.directory = options.directory
@@ -39,7 +38,8 @@ module.exports = async function (link, options) {
     if (options.rename) {
       downloader.config.fileName = options.rename;
     }
-    if (program.overwrite) {
+    if (options.overwrite) {
+      console.log(options.opts());
       downloader.config.cloneFiles = false;
     }
 
