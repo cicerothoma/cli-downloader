@@ -1,7 +1,7 @@
 const fileDownloader = require("nodejs-file-downloader");
 const chalk = require("chalk");
 const loadingSpinner = require("loading-spinner");
-// const ProgressBar = require("progress");
+const ProgressBar = require("progress");
 
 const spinnerConfig = {
   hideCursor: true,
@@ -16,14 +16,6 @@ const green = (str) => chalk.green(str);
 loadingSpinner.setSequence(
   [green("|"), green("/"), green("-"), green("\\")] // Sequence of spinner elements
 );
-
-// const progressBar = new ProgressBar("-> downloading [:bar] :percent :etas", {
-//   width: 40,
-//   complete: "=",
-//   incomplete: " ",
-//   renderThrottle: 1,
-//   total: parseInt(totalLength),
-// });
 
 module.exports = async function (link, options) {
   try {
@@ -42,18 +34,34 @@ module.exports = async function (link, options) {
       console.log(options.opts());
       downloader.config.cloneFiles = false;
     }
+    const progressBar = new ProgressBar(
+      "-> downloading [:bar] :percent :etas",
+      {
+        width: 40,
+        complete: "=",
+        incomplete: " ",
+        renderThrottle: 1,
+        total: 100,
+      }
+    );
 
-    downloader.on("progress", (percentage) => {
-      console.log(`Downloading... ${green(percentage)} %`);
+    downloader.on("progress", (chunck) => {
+      progressBar.tick(chunck.length);
+      //   console.log(chunck);
     });
-    loadingSpinner.start(100, spinnerConfig);
+
+    downloader.on("end", () => {
+      console.log(chalk.yellow("\n File Download Complete"));
+    });
+    // loadingSpinner.start(100, spinnerConfig);
 
     await downloader.download();
-    loadingSpinner.stop();
+    console.log();
+    // loadingSpinner.stop();
 
     console.log(chalk.yellow(`Your File has been downloaded.`));
   } catch (error) {
-    loadingSpinner.stop();
+    // loadingSpinner.stop();
     console.log(chalk.red(error.message));
     process.exit(1);
   }
