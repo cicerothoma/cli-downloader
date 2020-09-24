@@ -10,6 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.0",
-    "commander": "^6.1.0"
+    "commander": "^6.1.0",
+    "loading-spinner": "^1.2.1",
+    "nodejs-file-downloader": "^1.2.2",
+    "progress": "^2.0.3"
   }
 }
