@@ -7,10 +7,10 @@ const program = new commander.Command();
 
 program
   .version("0.1.0", "-v, --version", "prints script version")
-  .description(
-    "Download a file from the url specified!! (URL MUST BE A DOWNLOAD LINK)"
-  )
   .command("dl <downloadLink>")
+  .description(
+    "Download a file from the url supplied! (URL MUST BE A DOWNLOAD LINK)"
+  )
   .option(
     "-d, --directory <path>",
     "Directory or path to save currently downloaded file"
