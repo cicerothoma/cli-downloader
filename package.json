@@ -1,11 +1,12 @@
 {
-  "name": "file-dl",
-  "version": "1.0.0",
+  "name": "file-downloader",
+  "version": "0.1.0",
   "description": "Script to download files from the internet",
-  "main": "index.js",
+  "main": "file-dl",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": "./bin/index.js",
   "author": "Collins Thomas",
   "license": "ISC",
   "dependencies": {
@@ -14,5 +15,6 @@
     "loading-spinner": "^1.2.1",
     "nodejs-file-downloader": "^1.2.2",
     "progress": "^2.0.3"
-  }
+  },
+  "preferGlobal": true
 }
