@@ -1,4 +1,4 @@
-# learning-node-script
+# cli downloader
 
 A Node Script For Downloading Files From The Internet (Not Deployed To NPM Yet)
 
